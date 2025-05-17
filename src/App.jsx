@@ -19,11 +19,9 @@ const LandingPage = ({ showWelcome, setShowWelcome }) => {
       try {
         // Load projects and certificates from static data
         const projectsData = await getProjects();
-        const certificatesData = await getCertificates();
         
         // Store in localStorage for components that expect it
         localStorage.setItem("projects", JSON.stringify(projectsData));
-        localStorage.setItem("certificates", JSON.stringify(certificatesData));
       } catch (error) {
         console.error("Error initializing data:", error);
       }
@@ -54,7 +52,7 @@ const LandingPage = ({ showWelcome, setShowWelcome }) => {
               <span className="block text-sm pb-4 text-gray-500 text-center dark:text-gray-400">
                 © 2025{" "}
                 <a href="/" className="hover:underline">
-                  YourNameHere™
+                  Muhammad Sajid Alam
                 </a>
                 . All Rights Reserved.
               </span>
@@ -75,7 +73,7 @@ const ProjectPageLayout = () => (
         <span className="block text-sm pb-4 text-gray-500 text-center dark:text-gray-400">
           © 2025{" "}
           <a href="/" className="hover:underline">
-            YourNameHere™
+            Muhammad Sajid Alam
           </a>
           . All Rights Reserved.
         </span>

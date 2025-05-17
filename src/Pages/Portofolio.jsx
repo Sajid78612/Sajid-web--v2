@@ -11,9 +11,9 @@ import CardProject from "../components/CardProject";
 import TechStackIcon from "../components/TechStackIcon";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import Certificate from "../components/Certificate";
-import { Code, Award, Boxes } from "lucide-react";
-import { getProjects, getCertificates } from "../utils/dataUtils";
+import { Code, GraduationCap, Boxes } from "lucide-react";
+import { getProjects } from "../utils/dataUtils";
+import { education } from "../data/education";
 
 // Separate ShowMore/ShowLess button component
 const ToggleButton = ({ onClick, isShowingMore }) => (
@@ -99,30 +99,73 @@ function a11yProps(index) {
   };
 }
 
+const EducationCard = ({ education }) => (
+  <div className="w-full bg-gradient-to-br from-slate-900/90 to-slate-800/90 backdrop-blur-lg rounded-xl border border-white/10 overflow-hidden shadow-2xl transition-all duration-300 hover:shadow-purple-500/20 group">
+    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-pink-500/10 opacity-50 group-hover:opacity-70 transition-opacity duration-300"></div>
+    
+    <div className="relative p-6 z-10">
+      <div className="flex flex-col md:flex-row gap-6">
+        <div className="w-full md:w-1/4">
+          <div className="relative h-24 w-24 md:h-32 md:w-32 mx-auto md:mx-0 overflow-hidden rounded-xl border-2 border-white/10 group-hover:border-white/20 transition-all duration-300">
+            <img
+              src={education.Img}
+              alt={education.Institution}
+              className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+            />
+          </div>
+        </div>
+        
+        <div className="w-full md:w-3/4 space-y-3">
+          <h3 className="text-xl font-semibold bg-gradient-to-r from-blue-200 via-purple-200 to-pink-200 bg-clip-text text-transparent">
+            {education.Title}
+          </h3>
+          
+          <div className="space-y-1">
+            <p className="text-gray-300 font-medium">
+              {education.Institution}
+            </p>
+            
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-gray-400 text-sm">
+                {education.Year}
+              </span>
+              <span className="bg-purple-500/20 text-purple-300 text-xs px-2 py-0.5 rounded-full">
+                {education.Achievement}
+              </span>
+            </div>
+            
+            <p className="text-gray-400 text-sm mt-2">
+              {education.Details}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
 const techStacks = [
-  { icon: "html.svg", language: "HTML" },
-  { icon: "css.svg", language: "CSS" },
+  { icon: "python.svg", language: "Python" },
+  { icon: "react.svg", language: "React" },
+  { icon: "redux.svg", language: "Redux" },
   { icon: "javascript.svg", language: "JavaScript" },
-  { icon: "tailwind.svg", language: "Tailwind CSS" },
-  { icon: "reactjs.svg", language: "ReactJS" },
-  { icon: "vite.svg", language: "Vite" },
-  { icon: "nodejs.svg", language: "Node JS" },
-  { icon: "bootstrap.svg", language: "Bootstrap" },
-  { icon: "vercel.svg", language: "Vercel" },
-  { icon: "MUI.svg", language: "Material UI" },
+  { icon: "cloud.svg", language: "Cloud Architecture" },
+  { icon: "kedro.svg", language: "Kedro" },
+  { icon: "aws.svg", language: "AWS" },
+  { icon: "azure.svg", language: "Azure" },
+  { icon: "gcp.svg", language: "Google Cloud" },
   { icon: "github.svg", language: "GitHub" },
-  { icon: "git.svg", language: "Git" },
+  { icon: "ci-cd.svg", language: "CI/CD" },
+  { icon: "database.svg", language: "Databases" },
 ];
 
 export default function FullWidthTabs() {
   const theme = useTheme();
   const [value, setValue] = useState(0);
   const [projects, setProjects] = useState([]);
-  const [certificates, setCertificates] = useState([]);
   const [showAllProjects, setShowAllProjects] = useState(false);
-  const [showAllCertificates, setShowAllCertificates] = useState(false);
   const isMobile = window.innerWidth < 768;
-  const initialItems = isMobile ? 4 : 6;
+  const initialItems = isMobile ? 3 : 6;
 
   useEffect(() => {
     // Initialize AOS once
@@ -135,19 +178,13 @@ export default function FullWidthTabs() {
     try {
       // Load data from static sources
       const projectData = await getProjects();
-      const certificateData = await getCertificates();
-
       setProjects(projectData);
-      setCertificates(certificateData);
     } catch (error) {
       console.error("Error fetching data:", error);
       
       // Fallback to localStorage if available
       const storedProjects = JSON.parse(localStorage.getItem("projects") || "[]");
-      const storedCertificates = JSON.parse(localStorage.getItem("certificates") || "[]");
-      
       setProjects(storedProjects);
-      setCertificates(storedCertificates);
     }
   }, []);
 
@@ -159,16 +196,11 @@ export default function FullWidthTabs() {
     setValue(newValue);
   };
 
-  const toggleShowMore = useCallback((type) => {
-    if (type === 'projects') {
-      setShowAllProjects(prev => !prev);
-    } else {
-      setShowAllCertificates(prev => !prev);
-    }
+  const toggleShowMore = useCallback(() => {
+    setShowAllProjects(prev => !prev);
   }, []);
 
   const displayedProjects = showAllProjects ? projects : projects.slice(0, initialItems);
-  const displayedCertificates = showAllCertificates ? certificates : certificates.slice(0, initialItems);
 
   return (
     <div className="md:px-[10%] px-[5%] w-full sm:mt-0 mt-[3rem] bg-[#030014] overflow-hidden" id="Portofolio">
@@ -182,11 +214,11 @@ export default function FullWidthTabs() {
             backgroundClip: 'text',
             WebkitTextFillColor: 'transparent'
           }}>
-            Portfolio Showcase
+            Projects & Background
           </span>
         </h2>
         <p className="text-slate-400 max-w-2xl mx-auto text-sm md:text-base mt-2">
-          Explore my journey through projects, certifications, and technical expertise. 
+          Explore my professional journey through projects, education, and technical expertise.
           Each section represents a milestone in my continuous learning path.
         </p>
       </div>
@@ -267,8 +299,8 @@ export default function FullWidthTabs() {
               {...a11yProps(0)}
             />
             <Tab
-              icon={<Award className="mb-2 w-5 h-5 transition-all duration-300" />}
-              label="Certificates"
+              icon={<GraduationCap className="mb-2 w-5 h-5 transition-all duration-300" />}
+              label="Education"
               {...a11yProps(1)}
             />
             <Tab
@@ -307,7 +339,7 @@ export default function FullWidthTabs() {
             {projects.length > initialItems && (
               <div className="mt-6 w-full flex justify-start">
                 <ToggleButton
-                  onClick={() => toggleShowMore('projects')}
+                  onClick={toggleShowMore}
                   isShowingMore={showAllProjects}
                 />
               </div>
@@ -316,26 +348,55 @@ export default function FullWidthTabs() {
 
           <TabPanel value={value} index={1} dir={theme.direction}>
             <div className="container mx-auto flex justify-center items-center overflow-hidden">
-              <div className="grid grid-cols-1 md:grid-cols-3 md:gap-5 gap-4">
-                {displayedCertificates.map((certificate, index) => (
+              <div className="grid grid-cols-1 gap-6">
+                {education.map((edu, index) => (
                   <div
                     key={index}
-                    data-aos={index % 3 === 0 ? "fade-up-right" : index % 3 === 1 ? "fade-up" : "fade-up-left"}
-                    data-aos-duration={index % 3 === 0 ? "1000" : index % 3 === 1 ? "1200" : "1000"}
+                    data-aos={index % 2 === 0 ? "fade-up-right" : "fade-up-left"}
+                    data-aos-duration={index % 2 === 0 ? "1000" : "1200"}
                   >
-                    <Certificate ImgSertif={certificate.Img} />
+                    <EducationCard education={edu} />
                   </div>
                 ))}
+                
+                {/* Publication Card */}
+                <div 
+                  data-aos="fade-up"
+                  data-aos-duration="1400"
+                  className="w-full bg-gradient-to-br from-slate-900/90 to-slate-800/90 backdrop-blur-lg rounded-xl border border-white/10 overflow-hidden shadow-2xl transition-all duration-300 hover:shadow-purple-500/20 group"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-pink-500/10 opacity-50 group-hover:opacity-70 transition-opacity duration-300"></div>
+                  
+                  <div className="relative p-6 z-10">
+                    <h3 className="text-xl font-semibold bg-gradient-to-r from-blue-200 via-purple-200 to-pink-200 bg-clip-text text-transparent mb-3">
+                      IEEE Conference on Games Publication
+                    </h3>
+                    
+                    <div className="space-y-4">
+                      <p className="text-gray-300 text-sm md:text-base">
+                        My research on a new Statistical Forward Planning method was published at the 2020 IEEE Conference on Games. I co-authored this publication with Diego Perez-Liebana and Raluca D. Gaina.
+                      </p>
+                      
+                      <div className="p-4 bg-slate-800/50 rounded-lg border border-white/10">
+                        <p className="text-gray-400 text-sm italic">
+                          <strong>Abstract:</strong> This paper presents a new Statistical Forward Planning (SFP) method, Rolling Horizon NeuroEvolution of Augmenting Topologies (rhNEAT). Unlike traditional Rolling Horizon Evolution, where an evolutionary algorithm is in charge of evolving a sequence of actions, rhNEAT evolves weights and connections of a neural network in real-time, planning several steps ahead before returning an action to execute in the game.
+                        </p>
+                      </div>
+                      
+                      <a 
+                        href="https://ieeexplore.ieee.org/document/9231563" 
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center space-x-2 px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-white/90 transition-all duration-200 hover:scale-105 active:scale-95 mt-2"
+                      >
+                        <span className="text-sm font-medium">View Publication</span>
+                        <ExternalLink className="w-4 h-4" />
+                      </a>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-            {certificates.length > initialItems && (
-              <div className="mt-6 w-full flex justify-start">
-                <ToggleButton
-                  onClick={() => toggleShowMore('certificates')}
-                  isShowingMore={showAllCertificates}
-                />
-              </div>
-            )}
           </TabPanel>
 
           <TabPanel value={value} index={2} dir={theme.direction}>

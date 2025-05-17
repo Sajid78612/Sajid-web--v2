@@ -21,7 +21,7 @@ const Header = memo(() => (
       data-aos-duration="800"
     >
       <Sparkles className="w-5 h-5 text-purple-400" />
-      Transforming ideas into digital experiences
+      Building robust and scalable software solutions
       <Sparkles className="w-5 h-5 text-purple-400" />
     </p>
   </div>
@@ -118,10 +118,11 @@ const AboutPage = () => {
     const storedProjects = JSON.parse(localStorage.getItem("projects") || "[]");
     const storedCertificates = JSON.parse(localStorage.getItem("certificates") || "[]");
     
-    const startDate = new Date("2021-11-06");
+    // Career started in Sept 2021
+    const startDate = new Date("2021-09-01");
     const today = new Date();
-    const experience = today.getFullYear() - startDate.getFullYear() -
-      (today < new Date(today.getFullYear(), startDate.getMonth(), startDate.getDate()) ? 1 : 0);
+    const experience = today.getFullYear() - startDate.getFullYear() + 
+      (today.getMonth() >= startDate.getMonth() ? 0 : -1);
 
     return {
       totalProjects: storedProjects.length,
@@ -160,27 +161,27 @@ const AboutPage = () => {
       icon: Code,
       color: "from-[#6366f1] to-[#a855f7]",
       value: totalProjects,
-      label: "Total Projects",
-      description: "Innovative web solutions crafted",
+      label: "Projects",
+      description: "Open-source & enterprise solutions",
       animation: "fade-right",
     },
     {
-      icon: Award,
+      icon: Globe,
       color: "from-[#a855f7] to-[#6366f1]",
-      value: totalCertificates,
-      label: "Certificates",
-      description: "Professional skills validated",
+      value: YearExperience,
+      label: "Years of Experience",
+      description: "Professional software development",
       animation: "fade-up",
     },
     {
-      icon: Globe,
+      icon: Award,
       color: "from-[#6366f1] to-[#a855f7]",
-      value: YearExperience,
-      label: "Years of Experience",
-      description: "Continuous learning journey",
+      value: "MSc",
+      label: "AI Degree",
+      description: "Advanced academic qualification",
       animation: "fade-left",
     },
-  ], [totalProjects, totalCertificates, YearExperience]);
+  ], [totalProjects, YearExperience]);
 
   return (
     <div
@@ -205,7 +206,7 @@ const AboutPage = () => {
                 data-aos="fade-right"
                 data-aos-duration="1300"
               >
-                Eki Zulfar Rachman
+                Muhammad Sajid Alam
               </span>
             </h2>
             
@@ -214,14 +215,11 @@ const AboutPage = () => {
               data-aos="fade-right"
               data-aos-duration="1500"
             >
-              seorang siswa Teknik Jaringan Komputer dan Telekomunikasi yang
-              tertarik dalam pengembangan Front-End. Saya berfokus pada
-              menciptakan pengalaman digital yang menarik dan selalu berusaha
-              memberikan solusi terbaik dalam setiap proyek.
+              I'm a Senior Software Engineer at QuantumBlack, AI by McKinsey, where I contribute to Kedro - an open-source Python framework that enables data scientists and engineers to build robust, maintainable, and modular data pipelines. With a background in both AI research and software engineering, I specialize in developing scalable solutions across the full technology stack.
             </p>
 
             <div className="flex flex-col lg:flex-row items-center lg:items-start gap-4 lg:gap-4 lg:px-0 w-full">
-              <a href="https://drive.google.com/drive/folders/1BOm51Grsabb3zj6Xk27K-iRwI1zITcpo" className="w-full lg:w-auto">
+              <a href="#" className="w-full lg:w-auto">
               <button 
                 data-aos="fade-up"
                 data-aos-duration="800"

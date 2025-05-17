@@ -1,47 +1,50 @@
 export const projects = [
   {
     id: "1",
-    Title: "Portfolio Website",
-    Description: "A modern portfolio website built with React and Tailwind CSS.",
-    Img: "/project-images/portfolio.jpg",
-    Link: "https://yourusername.github.io/portfolio",
-    Github: "https://github.com/yourusername/portfolio",
-    TechStack: ["React", "Tailwind CSS", "Framer Motion", "Vite"],
+    Title: "Kedro Framework Enhancements",
+    Description: "As a maintainer of Kedro, I've led significant improvements across the ecosystem including multi-cloud dataset configurations, WAL for SQLite, and enhanced visualization components.",
+    Img: "/project-images/kedro.jpg",
+    Link: "https://kedro.org",
+    Github: "https://github.com/kedro-org/kedro",
+    TechStack: ["Python", "Cloud", "SQLite", "Azure", "AWS", "GCP"],
     Features: [
-      "Responsive design for all devices",
-      "Dark mode support",
-      "Animated transitions and effects",
-      "Project showcase with filtering options"
+      "Engineered Write-Ahead Logging for SQLite to resolve Azure ML environment issues",
+      "Designed multi-cloud dataset configurations for AWS, Azure, and GCP",
+      "Refactored Kedro-Viz flowchart architecture to improve maintainability",
+      "Enhanced Kedro-VSCode with real-time dataset validation",
+      "Optimized CI/CD pipelines for stability and performance"
     ]
   },
   {
     id: "2",
-    Title: "Task Manager App",
-    Description: "A full-featured task management application with drag-and-drop functionality.",
-    Img: "/project-images/task-manager.jpg",
-    Link: "https://yourusername.github.io/task-manager",
-    Github: "https://github.com/yourusername/task-manager",
-    TechStack: ["React", "Material UI", "Redux", "LocalStorage API"],
+    Title: "rhNEAT: Rolling Horizon NeuroEvolution",
+    Description: "Created a new Statistical Forward Planning method by combining NEAT and RHEA algorithms for general video game playing. Published research at the IEEE Conference on Games 2020.",
+    Img: "/project-images/rhneat.jpg",
+    Link: "https://ieeexplore.ieee.org/document/9231563",
+    Github: "https://github.com/Sajid78612",
+    TechStack: ["Python", "Neural Networks", "Evolutionary Algorithms", "C++"],
     Features: [
-      "Create, edit, and delete tasks",
-      "Organize tasks with drag-and-drop",
-      "Filter and search functionality",
-      "Local storage to persist data"
+      "Developed novel evolutionary algorithm combining NEAT and RHEA",
+      "Implemented in C++ and Python for performance and flexibility",
+      "Created benchmark environments for testing and evaluation",
+      "Published peer-reviewed research at IEEE Conference on Games 2020",
+      "Demonstrated superior performance over standard algorithms"
     ]
   },
   {
     id: "3",
-    Title: "Weather Dashboard",
-    Description: "A weather application that shows current and forecasted weather for any location.",
-    Img: "/project-images/weather-app.jpg",
-    Link: "https://yourusername.github.io/weather-app",
-    Github: "https://github.com/yourusername/weather-app",
-    TechStack: ["JavaScript", "HTML", "CSS", "Weather API"],
+    Title: "McAfee School Coding Competition",
+    Description: "Led a team of Year 12 students to create an arcade-style Connect 4 game, winning first place in the competition. Implemented agile practices and taught software engineering principles.",
+    Img: "/project-images/mcafee.jpg",
+    Link: "#",
+    Github: "Private",
+    TechStack: ["JavaScript", "HTML", "CSS", "Agile"],
     Features: [
-      "Real-time weather data visualization",
-      "Search for locations globally",
-      "5-day weather forecast",
-      "Weather alerts and notifications"
+      "Mentored student development team using agile methodologies",
+      "Implemented interactive Connect 4 gameplay with modern web technologies",
+      "Created custom animations and visual effects for engaging UI",
+      "Won first place in McAfee-sponsored competition",
+      "Provided software engineering fundamentals to high school students"
     ]
   }
 ];

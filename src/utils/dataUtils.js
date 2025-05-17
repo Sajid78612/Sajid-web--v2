@@ -1,6 +1,5 @@
-// Import static data
 import { projects } from '../data/projects';
-import { certificates } from '../data/certificates';
+import { education } from '../data/education';
 
 // Function to get all projects
 export const getProjects = () => {
@@ -13,9 +12,9 @@ export const getProjectById = (id) => {
   return Promise.resolve(project || null);
 };
 
-// Function to get all certificates
-export const getCertificates = () => {
-  return Promise.resolve([...certificates]);
+// Function to get all education data
+export const getEducation = () => {
+  return Promise.resolve([...education]);
 };
 
 // Format date helper
