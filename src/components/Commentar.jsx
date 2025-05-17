@@ -1,15 +1,12 @@
 import React, { useState, useEffect, useRef, useCallback, memo } from 'react';
-import { getDocs, addDoc, collection, onSnapshot, query, orderBy, serverTimestamp } from 'firebase/firestore';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { db, storage } from '../firebase-comment';
 import { MessageCircle, UserCircle2, Loader2, AlertCircle, Send, ImagePlus, X } from 'lucide-react';
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { getComments, formatDate, addComment } from '../utils/dataUtils';
 
 const Comment = memo(({ comment, formatDate, index }) => (
     <div 
         className="px-4 pt-4 pb-2 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all group hover:shadow-lg hover:-translate-y-0.5"
-        
     >
         <div className="flex items-start gap-3 ">
             {comment.profileImage ? (
@@ -45,6 +42,7 @@ const CommentForm = memo(({ onSubmit, isSubmitting, error }) => {
     const textareaRef = useRef(null);
     const fileInputRef = useRef(null);
 
+    // Note: This is simplified as we won't actually upload the file
     const handleImageChange = useCallback((e) => {
         const file = e.target.files[0];
         if (file) {
@@ -68,13 +66,19 @@ const CommentForm = memo(({ onSubmit, isSubmitting, error }) => {
         e.preventDefault();
         if (!newComment.trim() || !userName.trim()) return;
         
-        onSubmit({ newComment, userName, imageFile });
+        onSubmit({ 
+            content: newComment, 
+            userName, 
+            // Convert the image to a data URL if available, otherwise null
+            profileImage: imagePreview
+        });
+        
         setNewComment('');
         setImagePreview(null);
         setImageFile(null);
         if (fileInputRef.current) fileInputRef.current.value = '';
         if (textareaRef.current) textareaRef.current.style.height = 'auto';
-    }, [newComment, userName, imageFile, onSubmit]);
+    }, [newComment, userName, imagePreview, onSubmit]);
 
     return (
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -85,7 +89,7 @@ const CommentForm = memo(({ onSubmit, isSubmitting, error }) => {
                 <input
                     type="text"
                     value={userName}
-                    onChange={(e) => setUserName(e.target.value)}z
+                    onChange={(e) => setUserName(e.target.value)}
                     placeholder="Enter your name"
                     className="w-full p-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-400 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all"
                     required
@@ -192,70 +196,41 @@ const Komentar = () => {
             once: false,
             duration: 1000,
         });
-    }, []);
-
-    useEffect(() => {
-        const commentsRef = collection(db, 'portfolio-comments');
-        const q = query(commentsRef, orderBy('createdAt', 'desc'));
         
-        return onSnapshot(q, (querySnapshot) => {
-            const commentsData = querySnapshot.docs.map((doc) => ({
-                id: doc.id,
-                ...doc.data(),
-            }));
-            setComments(commentsData);
-        });
+        // Load initial comments
+        const loadComments = async () => {
+            try {
+                const commentsData = await getComments();
+                setComments(commentsData);
+            } catch (error) {
+                console.error("Error loading comments:", error);
+                setError("Failed to load comments. Please refresh the page.");
+            }
+        };
+        
+        loadComments();
     }, []);
 
-    const uploadImage = useCallback(async (imageFile) => {
-        if (!imageFile) return null;
-        const storageRef = ref(storage, `profile-images/${Date.now()}_${imageFile.name}`);
-        await uploadBytes(storageRef, imageFile);
-        return getDownloadURL(storageRef);
-    }, []);
-
-    const handleCommentSubmit = useCallback(async ({ newComment, userName, imageFile }) => {
+    const handleCommentSubmit = useCallback(async (commentData) => {
         setError('');
         setIsSubmitting(true);
         
         try {
-            const profileImageUrl = await uploadImage(imageFile);
-            await addDoc(collection(db, 'portfolio-comments'), {
-                content: newComment,
-                userName,
-                profileImage: profileImageUrl,
-                createdAt: serverTimestamp(),
-            });
+            // Instead of uploading to Firebase, we just create a local comment
+            const newComment = await addComment(commentData);
+            
+            // Add the new comment to our local state
+            setComments(prevComments => [newComment, ...prevComments]);
         } catch (error) {
             setError('Failed to post comment. Please try again.');
             console.error('Error adding comment: ', error);
         } finally {
             setIsSubmitting(false);
         }
-    }, [uploadImage]);
-
-    const formatDate = useCallback((timestamp) => {
-        if (!timestamp) return '';
-        const date = timestamp.toDate();
-        const now = new Date();
-        const diffMinutes = Math.floor((now - date) / (1000 * 60));
-        const diffHours = Math.floor(diffMinutes / 60);
-        const diffDays = Math.floor(diffHours / 24);
-
-        if (diffMinutes < 1) return 'Just now';
-        if (diffMinutes < 60) return `${diffMinutes}m ago`;
-        if (diffHours < 24) return `${diffHours}h ago`;
-        if (diffDays < 7) return `${diffDays}d ago`;
-
-        return new Intl.DateTimeFormat('en-US', {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric'
-        }).format(date);
     }, []);
 
     return (
-        <div className="w-full bg-gradient-to-b from-white/10 to-white/5 rounded-2xl overflow-hidden backdrop-blur-xl shadow-xl" data-aos="fade-up" data-aos-duration="1000">
+        <div className="w-full bg-gradient-to-br from-white/10 to-white/5 rounded-2xl overflow-hidden backdrop-blur-xl shadow-xl" data-aos="fade-up" data-aos-duration="1000">
         <div className="p-6 border-b border-white/10" data-aos="fade-down" data-aos-duration="800">
             <div className="flex items-center gap-3">
                 <div className="p-2 rounded-xl bg-indigo-500/20">
@@ -274,7 +249,7 @@ const Komentar = () => {
                 </div>
             )}
             
-            <div >
+            <div>
                 <CommentForm onSubmit={handleCommentSubmit} isSubmitting={isSubmitting} error={error} />
             </div>
 

@@ -5,6 +5,7 @@ import {
   ChevronRight, Layers, Layout, Globe, Package, Cpu, Code,
 } from "lucide-react";
 import Swal from 'sweetalert2';
+import { getProjectById } from "../utils/dataUtils";
 
 const TECH_ICONS = {
   React: Globe,
@@ -61,7 +62,7 @@ const ProjectStats = ({ project }) => {
         </div>
         <div className="flex-grow">
           <div className="text-lg md:text-xl font-semibold text-blue-200">{techStackCount}</div>
-          <div className="text-[10px] md:text-xs text-gray-400">Total Teknologi</div>
+          <div className="text-[10px] md:text-xs text-gray-400">Total Technologies</div>
         </div>
       </div>
 
@@ -71,7 +72,7 @@ const ProjectStats = ({ project }) => {
         </div>
         <div className="flex-grow">
           <div className="text-lg md:text-xl font-semibold text-purple-200">{featuresCount}</div>
-          <div className="text-[10px] md:text-xs text-gray-400">Fitur Utama</div>
+          <div className="text-[10px] md:text-xs text-gray-400">Key Features</div>
         </div>
       </div>
     </div>
@@ -83,8 +84,8 @@ const handleGithubClick = (githubLink) => {
     Swal.fire({
       icon: 'info',
       title: 'Source Code Private',
-      text: 'Maaf, source code untuk proyek ini bersifat privat.',
-      confirmButtonText: 'Mengerti',
+      text: 'Sorry, the source code for this project is private.',
+      confirmButtonText: 'Understood',
       confirmButtonColor: '#3085d6',
       background: '#030014',
       color: '#ffffff'
@@ -102,18 +103,35 @@ const ProjectDetails = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    const storedProjects = JSON.parse(localStorage.getItem("projects")) || [];
-    const selectedProject = storedProjects.find((p) => String(p.id) === id);
     
-    if (selectedProject) {
-      const enhancedProject = {
-        ...selectedProject,
-        Features: selectedProject.Features || [],
-        TechStack: selectedProject.TechStack || [],
-        Github: selectedProject.Github || 'https://github.com/EkiZR',
-      };
-      setProject(enhancedProject);
-    }
+    const loadProject = async () => {
+      try {
+        // Try to get the project from our static data first
+        const projectData = await getProjectById(id);
+        
+        if (projectData) {
+          setProject(projectData);
+        } else {
+          // Fallback to localStorage if available
+          const storedProjects = JSON.parse(localStorage.getItem("projects")) || [];
+          const selectedProject = storedProjects.find((p) => String(p.id) === id);
+          
+          if (selectedProject) {
+            const enhancedProject = {
+              ...selectedProject,
+              Features: selectedProject.Features || [],
+              TechStack: selectedProject.TechStack || [],
+              Github: selectedProject.Github || 'https://github.com/yourusername',
+            };
+            setProject(enhancedProject);
+          }
+        }
+      } catch (error) {
+        console.error("Error loading project:", error);
+      }
+    };
+    
+    loadProject();
   }, [id]);
 
   if (!project) {
@@ -226,13 +244,13 @@ const ProjectDetails = () => {
                 <img
                   src={project.Img}
                   alt={project.Title}
-                  className="w-full  object-cover transform transition-transform duration-700 will-change-transform group-hover:scale-105"
+                  className="w-full object-cover transform transition-transform duration-700 will-change-transform group-hover:scale-105"
                   onLoad={() => setIsImageLoaded(true)}
                 />
                 <div className="absolute inset-0 border-2 border-white/0 group-hover:border-white/10 transition-colors duration-300 rounded-2xl" />
               </div>
 
-              {/* Fitur Utama */}
+              {/* Key Features */}
               <div className="bg-white/[0.02] backdrop-blur-xl rounded-2xl p-8 border border-white/10 space-y-6 hover:border-white/20 transition-colors duration-300 group">
                 <h3 className="text-xl font-semibold text-white/90 flex items-center gap-3">
                   <Star className="w-5 h-5 text-yellow-400 group-hover:rotate-[20deg] transition-transform duration-300" />

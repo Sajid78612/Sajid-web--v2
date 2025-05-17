@@ -1,6 +1,4 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { db, collection } from "../firebase";
-import { getDocs } from "firebase/firestore";
 import PropTypes from "prop-types";
 import SwipeableViews from "react-swipeable-views";
 import { useTheme } from "@mui/material/styles";
@@ -15,6 +13,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import Certificate from "../components/Certificate";
 import { Code, Award, Boxes } from "lucide-react";
+import { getProjects, getCertificates } from "../utils/dataUtils";
 
 // Separate ShowMore/ShowLess button component
 const ToggleButton = ({ onClick, isShowingMore }) => (
@@ -109,10 +108,10 @@ const techStacks = [
   { icon: "vite.svg", language: "Vite" },
   { icon: "nodejs.svg", language: "Node JS" },
   { icon: "bootstrap.svg", language: "Bootstrap" },
-  { icon: "firebase.svg", language: "Firebase" },
-  { icon: "MUI.svg", language: "Material UI" },
   { icon: "vercel.svg", language: "Vercel" },
-  { icon: "SweetAlert.svg", language: "SweetAlert2" },
+  { icon: "MUI.svg", language: "Material UI" },
+  { icon: "github.svg", language: "GitHub" },
+  { icon: "git.svg", language: "Git" },
 ];
 
 export default function FullWidthTabs() {
@@ -134,30 +133,21 @@ export default function FullWidthTabs() {
 
   const fetchData = useCallback(async () => {
     try {
-      const projectCollection = collection(db, "projects");
-      const certificateCollection = collection(db, "certificates");
-
-      const [projectSnapshot, certificateSnapshot] = await Promise.all([
-        getDocs(projectCollection),
-        getDocs(certificateCollection),
-      ]);
-
-      const projectData = projectSnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-        TechStack: doc.data().TechStack || [],
-      }));
-
-      const certificateData = certificateSnapshot.docs.map((doc) => doc.data());
+      // Load data from static sources
+      const projectData = await getProjects();
+      const certificateData = await getCertificates();
 
       setProjects(projectData);
       setCertificates(certificateData);
-
-      // Store in localStorage
-      localStorage.setItem("projects", JSON.stringify(projectData));
-      localStorage.setItem("certificates", JSON.stringify(certificateData));
     } catch (error) {
       console.error("Error fetching data:", error);
+      
+      // Fallback to localStorage if available
+      const storedProjects = JSON.parse(localStorage.getItem("projects") || "[]");
+      const storedCertificates = JSON.parse(localStorage.getItem("certificates") || "[]");
+      
+      setProjects(storedProjects);
+      setCertificates(storedCertificates);
     }
   }, []);
 
