@@ -11,7 +11,7 @@ import CardProject from "../components/CardProject";
 import TechStackIcon from "../components/TechStackIcon";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { Code, GraduationCap, Boxes } from "lucide-react";
+import { Code, GraduationCap, Boxes, ExternalLink } from "lucide-react";
 import { getProjects } from "../utils/dataUtils";
 import { education } from "../data/education";
 
