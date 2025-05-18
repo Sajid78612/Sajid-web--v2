@@ -68,49 +68,76 @@ const ProfileImage = memo(() => (
   </div>
 ));
 
-const StatCard = memo(({ icon: Icon, color, value, label, description, animation }) => (
-  <div data-aos={animation} data-aos-duration={1300} className="relative group">
-    <div className="relative z-10 bg-gray-900/50 backdrop-blur-lg rounded-2xl p-6 border border-white/10 overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl h-full flex flex-col justify-between">
-      <div className={`absolute -z-10 inset-0 bg-gradient-to-br ${color} opacity-10 group-hover:opacity-20 transition-opacity duration-300`}></div>
+const StatCard = memo(({ icon: Icon, color, value, label, description, animation, targetId, tabIndex }) => {
+  const handleClick = () => {
+    // Find the section to scroll to
+    const element = document.getElementById(targetId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
       
-      <div className="flex items-center justify-between mb-4">
-        <div className="w-16 h-16 rounded-full flex items-center justify-center bg-white/10 transition-transform group-hover:rotate-6">
-          <Icon className="w-8 h-8 text-white" />
-        </div>
-        <span 
-          className="text-4xl font-bold text-white"
-          data-aos="fade-up-left"
-          data-aos-duration="1500"
-          data-aos-anchor-placement="top-bottom"
-        >
-          {value}
-        </span>
-      </div>
+      // If there's a tab to switch to
+      if (tabIndex !== undefined) {
+        // Need a slight delay to allow scrolling to finish
+        setTimeout(() => {
+          // Find the tab buttons
+          const tabButtons = document.querySelectorAll('.MuiTab-root');
+          if (tabButtons && tabButtons[tabIndex]) {
+            tabButtons[tabIndex].click();
+          }
+        }, 800);
+      }
+    }
+  };
 
-      <div>
-        <p 
-          className="text-sm uppercase tracking-wider text-gray-300 mb-2"
-          data-aos="fade-up"
-          data-aos-duration="800"
-          data-aos-anchor-placement="top-bottom"
-        >
-          {label}
-        </p>
-        <div className="flex items-center justify-between">
-          <p 
-            className="text-xs text-gray-400"
-            data-aos="fade-up"
-            data-aos-duration="1000"
+  return (
+    <div 
+      onClick={handleClick} 
+      data-aos={animation} 
+      data-aos-duration={1300} 
+      className="relative group cursor-pointer"
+    >
+      <div className="relative z-10 bg-gray-900/50 backdrop-blur-lg rounded-2xl p-6 border border-white/10 overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl h-full flex flex-col justify-between">
+        <div className={`absolute -z-10 inset-0 bg-gradient-to-br ${color} opacity-10 group-hover:opacity-20 transition-opacity duration-300`}></div>
+        
+        <div className="flex items-center justify-between mb-4">
+          <div className="w-16 h-16 rounded-full flex items-center justify-center bg-white/10 transition-transform group-hover:rotate-6">
+            <Icon className="w-8 h-8 text-white" />
+          </div>
+          <span 
+            className="text-4xl font-bold text-white"
+            data-aos="fade-up-left"
+            data-aos-duration="1500"
             data-aos-anchor-placement="top-bottom"
           >
-            {description}
+            {value}
+          </span>
+        </div>
+
+        <div>
+          <p 
+            className="text-sm uppercase tracking-wider text-gray-300 mb-2"
+            data-aos="fade-up"
+            data-aos-duration="800"
+            data-aos-anchor-placement="top-bottom"
+          >
+            {label}
           </p>
-          <ArrowUpRight className="w-4 h-4 text-white/50 group-hover:text-white transition-colors" />
+          <div className="flex items-center justify-between">
+            <p 
+              className="text-xs text-gray-400"
+              data-aos="fade-up"
+              data-aos-duration="1000"
+              data-aos-anchor-placement="top-bottom"
+            >
+              {description}
+            </p>
+            <ArrowUpRight className="w-4 h-4 text-white/50 group-hover:text-white transition-colors" />
+          </div>
         </div>
       </div>
     </div>
-  </div>
-));
+  );
+});
 
 const AboutPage = () => {
   // Memoized calculations
@@ -164,6 +191,8 @@ const AboutPage = () => {
       label: "Projects",
       description: "Open-source & enterprise solutions",
       animation: "fade-right",
+      targetId: "Portofolio",
+      tabIndex: 0  // Projects tab
     },
     {
       icon: Globe,
@@ -172,6 +201,8 @@ const AboutPage = () => {
       label: "Years of Experience",
       description: "Professional software development",
       animation: "fade-up",
+      targetId: "Portofolio", 
+      tabIndex: 2  // Tech Stack tab (index 2)
     },
     {
       icon: Award,
@@ -180,6 +211,8 @@ const AboutPage = () => {
       label: "AI Degree",
       description: "Advanced academic qualification",
       animation: "fade-left",
+      targetId: "Portofolio",
+      tabIndex: 1  // Education tab (index 1)
     },
   ], [totalProjects, YearExperience]);
 
@@ -228,28 +261,39 @@ const AboutPage = () => {
                 <FileText className="w-4 h-4 sm:w-5 sm:h-5" /> Download CV
               </button>
               </a>
-              <a href="#Portofolio" className="w-full lg:w-auto">
               <button 
                 data-aos="fade-up"
                 data-aos-duration="1000"
                 className="w-full lg:w-auto sm:px-6 py-2 sm:py-3 rounded-lg border border-[#a855f7]/50 text-[#a855f7] font-medium transition-all duration-300 hover:scale-105 flex items-center justify-center lg:justify-start gap-2 hover:bg-[#a855f7]/10 animate-bounce-slow delay-200"
+                onClick={() => {
+                  const element = document.getElementById("Portofolio");
+                  if (element) {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    
+                    // Need a slight delay to allow scrolling to finish
+                    setTimeout(() => {
+                      // Find the tab buttons
+                      const tabButtons = document.querySelectorAll('.MuiTab-root');
+                      if (tabButtons && tabButtons[0]) { // 0 is the index for Projects tab
+                        tabButtons[0].click();
+                      }
+                    }, 800);
+                  }
+                }}
               >
                 <Code className="w-4 h-4 sm:w-5 sm:h-5" /> View Projects
-              </button>
-              </a>
+              </button>.
             </div>
           </div>
 
           <ProfileImage />
         </div>
 
-        <a href="#Portofolio">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 cursor-pointer">
-            {statsData.map((stat) => (
-              <StatCard key={stat.label} {...stat} />
-            ))}
-          </div>
-        </a>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16">
+          {statsData.map((stat) => (
+            <StatCard key={stat.label} {...stat} />
+          ))}
+        </div>
       </div>
 
       <style jsx>{`

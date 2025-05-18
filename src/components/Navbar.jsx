@@ -54,12 +54,13 @@ const Navbar = () => {
 
     const scrollToSection = (e, href) => {
         e.preventDefault();
-        const section = document.querySelector(href);
+        const sectionId = href.replace('#', '');
+        const section = document.getElementById(sectionId);
         if (section) {
             const top = section.offsetTop - 100;
             window.scrollTo({
-                top: top,
-                behavior: "smooth"
+            top: top,
+            behavior: "smooth"
             });
         }
         setIsOpen(false);
