@@ -282,7 +282,7 @@ const AboutPage = () => {
                 }}
               >
                 <Code className="w-4 h-4 sm:w-5 sm:h-5" /> View Projects
-              </button>.
+              </button>
             </div>
           </div>
 

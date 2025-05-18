@@ -192,10 +192,21 @@ const Home = () => {
                 </div>
 
                 {/* Description */}
-                <p className="text-base md:text-lg text-gray-400 max-w-xl leading-relaxed font-light"
+                <p
+                  className="text-base md:text-lg text-gray-400 max-w-xl leading-relaxed font-light"
                   data-aos="fade-up"
-                  data-aos-delay="1000">
-                  Senior Software Engineer at QuantumBlack, AI by McKinsey. Specializing in developing scalable solutions with a focus on architectural design and cloud implementations.
+                  data-aos-delay="1000"
+                >
+                  Senior Software Engineer @
+                  <a
+                    href="https://www.mckinsey.com/capabilities/quantumblack"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-white underline hover:text-gray-200"
+                  >
+                    QuantumBlack, AI by McKinsey
+                  </a>
+                  . Specialising in developing scalable solutions with a focus on architectural design and cloud implementations.
                 </p>
 
                 {/* Tech Stack */}
