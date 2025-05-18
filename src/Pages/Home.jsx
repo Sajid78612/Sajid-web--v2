@@ -12,7 +12,7 @@ const StatusBadge = memo(() => (
       <div className="relative px-3 sm:px-4 py-2 rounded-full bg-black/40 backdrop-blur-xl border border-white/10">
         <span className="bg-gradient-to-r from-[#6366f1] to-[#a855f7] text-transparent bg-clip-text sm:text-sm text-[0.7rem] font-medium flex items-center">
           <Sparkles className="sm:w-4 sm:h-4 w-3 h-3 mr-2 text-blue-400" />
-          Available for new projects
+            Full Stack Dev
         </span>
       </div>
     </div>
@@ -25,7 +25,7 @@ const MainTitle = memo(() => (
       <span className="relative inline-block">
         <span className="absolute -inset-2 bg-gradient-to-r from-[#6366f1] to-[#a855f7] blur-2xl opacity-20"></span>
         <span className="relative bg-gradient-to-r from-white via-blue-100 to-purple-200 bg-clip-text text-transparent">
-          Full Stack Software
+          Software
         </span>
       </span>
       <br />
@@ -90,7 +90,7 @@ const TYPING_SPEED = 100;
 const ERASING_SPEED = 50;
 const PAUSE_DURATION = 2000;
 const WORDS = ["Python", "React", "Cloud", "Kedro"];
-const TECH_STACK = ["Python", "React", "Cloud Architecture", "Kedro"];
+const TECH_STACK = ["Python", "React", "Cloud", "Kedro"];
 const SOCIAL_LINKS = [
   { icon: Github, link: "https://github.com/SajidAlamQB" },
   { icon: Linkedin, link: "https://www.linkedin.com/in/sajid-alam-b2a228151/" },
