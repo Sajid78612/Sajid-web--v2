@@ -384,7 +384,7 @@ export default function FullWidthTabs() {
                       </div>
                       
                       <a 
-                        href="https://ieeexplore.ieee.org/document/9231563" 
+                        href="https://ieeexplore.ieee.org/document/9231606" 
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center space-x-2 px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-white/90 transition-all duration-200 hover:scale-105 active:scale-95 mt-2"

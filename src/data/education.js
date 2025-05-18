@@ -6,7 +6,7 @@ export const education = [
     Year: "2020-2021",
     Achievement: "Merit",
     Details: "QuantumBlack & Office of AI Scholarship Recipient",
-    Img: "/certificate-images/qmul.jpg"
+    Img: "qmul.svg"
   },
   {
     id: "2",
@@ -15,6 +15,6 @@ export const education = [
     Year: "2016-2020",
     Achievement: "1st Class Honours",
     Details: "Industrial Placement: Software Engineer Intern at McAfee (2018-2019)",
-    Img: "/certificate-images/qmul-bsc.jpg"
+    Img: "qmul.svg"
   }
 ];

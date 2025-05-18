@@ -255,7 +255,16 @@ const ContactPage = () => {
               <div className="space-y-4">
                 <SocialLinkCard 
                   icon={Mail}
-                  title="Email"
+                  title="Work Email"
+                  subtitle="sajid_alam@mckinsey.com"
+                  link="mailto:sajid_alam@mckinsey.com"
+                  color="#6366f1"
+                  hoverColor="#a855f7"
+                />
+
+                <SocialLinkCard 
+                  icon={Mail}
+                  title="Personal Email"
                   subtitle="sajidalam786@gmail.com"
                   link="mailto:sajidalam786@gmail.com"
                   color="#6366f1"
@@ -275,18 +284,9 @@ const ContactPage = () => {
                   icon={Github}
                   title="GitHub"
                   subtitle="Check out my code repositories"
-                  link="https://github.com/Sajid78612"
+                  link="https://github.com/SajidAlamQB"
                   color="#ffffff"
                   hoverColor="#a1a1aa"
-                />
-                
-                <SocialLinkCard 
-                  icon={Globe}
-                  title="Kedro"
-                  subtitle="Visit the Kedro framework site"
-                  link="https://kedro.org"
-                  color="#ff4b4b"
-                  hoverColor="#f87171"
                 />
               </div>
             </div>
