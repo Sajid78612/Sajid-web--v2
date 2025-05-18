@@ -79,7 +79,8 @@ function TabPanel({ children, value, index, ...other }) {
     >
       {value === index && (
         <Box sx={{ p: { xs: 1, sm: 3 } }}>
-          <Typography>{children}</Typography>
+          {/* Change from Typography to div */}
+          <div>{children}</div>
         </Box>
       )}
     </div>

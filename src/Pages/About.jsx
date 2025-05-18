@@ -195,16 +195,6 @@ const AboutPage = () => {
       tabIndex: 0  // Projects tab
     },
     {
-      icon: Globe,
-      color: "from-[#a855f7] to-[#6366f1]",
-      value: YearExperience,
-      label: "Years of Experience",
-      description: "Professional software development",
-      animation: "fade-up",
-      targetId: "Portofolio", 
-      tabIndex: 2  // Tech Stack tab (index 2)
-    },
-    {
       icon: Award,
       color: "from-[#6366f1] to-[#a855f7]",
       value: "MSc",
@@ -213,6 +203,16 @@ const AboutPage = () => {
       animation: "fade-left",
       targetId: "Portofolio",
       tabIndex: 1  // Education tab (index 1)
+    },
+    {
+      icon: Globe,
+      color: "from-[#a855f7] to-[#6366f1]",
+      value: YearExperience,
+      label: "Years of Experience",
+      description: "Professional software development",
+      animation: "fade-up",
+      targetId: "Portofolio", 
+      tabIndex: 2  // Tech Stack tab (index 2)
     },
   ], [totalProjects, YearExperience]);
 
@@ -296,7 +296,7 @@ const AboutPage = () => {
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         @keyframes float {
           0%, 100% { transform: translateY(0); }
           50% { transform: translateY(-20px); }
