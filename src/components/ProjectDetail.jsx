@@ -238,13 +238,12 @@ const ProjectDetails = () => {
             </div>
 
             <div className="space-y-6 md:space-y-10 animate-slideInRight">
-              <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl group">
-              
+              <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl group bg-slate-900/30 h-64 md:h-80 flex items-center justify-center p-16">
                 <div className="absolute inset-0 bg-gradient-to-t from-[#030014] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <img
                   src={project.Img}
                   alt={project.Title}
-                  className="w-full object-cover transform transition-transform duration-700 will-change-transform group-hover:scale-105"
+                  className="max-w-[60%] max-h-[60%] object-contain transform transition-transform duration-700 will-change-transform group-hover:scale-105"
                   onLoad={() => setIsImageLoaded(true)}
                 />
                 <div className="absolute inset-0 border-2 border-white/0 group-hover:border-white/10 transition-colors duration-300 rounded-2xl" />
