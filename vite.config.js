@@ -8,5 +8,5 @@ export default defineConfig({
   // Base path - change this to your GitHub repository name
   // For example, if your repo is at https://github.com/yourusername/portfolio
   // then the base would be '/portfolio/'
-  base: '/Sajid-web--v2/',
+  base: '/',
 })
