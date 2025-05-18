@@ -80,8 +80,8 @@ const PAUSE_DURATION = 2000;
 const WORDS = ["Python", "React", "Cloud", "Kedro"];
 const TECH_STACK = ["Python", "React", "Cloud Architecture", "Kedro"];
 const SOCIAL_LINKS = [
-  { icon: Github, link: "https://github.com/Sajid78612" },
-  { icon: Linkedin, link: "https://www.linkedin.com/in/muhammad-sajid-alam" },
+  { icon: Github, link: "https://github.com/SajidAlamQB" },
+  { icon: Linkedin, link: "https://www.linkedin.com/in/sajid-alam-b2a228151/" },
   { icon: Globe, link: "https://kedro.org" }
 ];
 

@@ -15,7 +15,7 @@ A sleek, responsive portfolio website built with React, Vite, and Tailwind CSS. 
 
 ## Demo
 
-[View Live Demo](https://yourusername.github.io/portfolio)
+[View Live Demo](https://sajidalam.co.uk/Sajid-web--v2/)
 
 ## Tech Stack Used
 
@@ -32,7 +32,7 @@ A sleek, responsive portfolio website built with React, Vite, and Tailwind CSS. 
 1. **Clone this repository:**
 
    ```bash
-   git clone https://github.com/yourusername/portfolio.git
+   git clone https://github.com/Sajid78612/Sajid-web--v2.git
    ```
 
 2. **Install dependencies:**

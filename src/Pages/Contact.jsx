@@ -275,7 +275,7 @@ const ContactPage = () => {
                   icon={Linkedin}
                   title="LinkedIn"
                   subtitle="Connect with me professionally"
-                  link="https://www.linkedin.com/in/muhammad-sajid-alam"
+                  link="https://www.linkedin.com/in/sajid-alam-b2a228151/"
                   color="#0A66C2"
                   hoverColor="#0284c7"
                 />
