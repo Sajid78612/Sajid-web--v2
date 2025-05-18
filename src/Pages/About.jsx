@@ -248,7 +248,7 @@ const AboutPage = () => {
               data-aos="fade-right"
               data-aos-duration="1500"
             >
-              I'm a Senior Software Engineer at QuantumBlack, AI by McKinsey, where I contribute to Kedro - an open-source Python framework that enables data scientists and engineers to build robust, maintainable, and modular data pipelines. With a background in both AI research and software engineering, I specialize in developing scalable solutions across the full technology stack.
+              I'm a Senior Software Engineer at QuantumBlack, AI by McKinsey, where I contribute to Kedro - an open-source Python framework that enables data scientists and engineers to build robust, maintainable, and modular data pipelines. With a background in both AI research and software engineering, I specialise in developing scalable solutions across the full technology stack.
             </p>
 
             <div className="flex flex-col lg:flex-row items-center lg:items-start gap-4 lg:gap-4 lg:px-0 w-full">
