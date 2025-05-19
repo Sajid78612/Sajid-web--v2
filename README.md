@@ -15,7 +15,7 @@ A sleek, responsive portfolio website built with React, Vite, and Tailwind CSS. 
 
 ## Demo
 
-[View Live Demo](https://sajidalam.co.uk/Sajid-web--v2/)
+[View Live Demo](https://sajidalam.co.uk/)
 
 ## Tech Stack Used
 
